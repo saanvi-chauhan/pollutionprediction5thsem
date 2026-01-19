@@ -6,14 +6,17 @@ import PollutantCard from '../components/PollutantCard'
 import AQIGauge from '../components/AQIGauge'
 import ShapExplanation from '../components/ShapExplanation'
 import HealthAdvisory from '../components/HealthAdvisory'
-import HistoricalChart from '../components/HistoricalChart'
+import StationPeakChart from '../components/StationPeakChart'
+import MonthlyPeakTrend from '../components/MonthlyPeakTrend'
+
+
 
 const Dashboard = ({ darkMode }) => {
     const [selectedStation, setSelectedStation] = useState('Peenya')
     const [loading, setLoading] = useState(false)
     const [prediction, setPrediction] = useState(null)
     const [error, setError] = useState(null)
-    const [timeFilter, setTimeFilter] = useState('24h')
+
 
     // Initial state with safe defaults
     const [sensorData, setSensorData] = useState({
@@ -202,8 +205,23 @@ const Dashboard = ({ darkMode }) => {
                 </div>
             )}
 
-            {/* Historical Chart */}
-            <HistoricalChart darkMode={darkMode} timeFilter={timeFilter} />
+            {/* Peak Analysis Section */}
+            <div className="mt-12 mb-8">
+                <h2 className="text-xl font-semibold mb-6">📉 Traffic & Temporal Analysis</h2>
+                <div className="grid lg:grid-cols-2 gap-6 mb-4">
+                    <StationPeakChart darkMode={darkMode} />
+                    <MonthlyPeakTrend darkMode={darkMode} />
+                </div>
+                <div className={`p-4 rounded-lg border ${darkMode ? 'bg-slate-800/50 border-slate-700 text-gray-400' : 'bg-gray-50 border-gray-200 text-gray-600'} text-sm`}>
+                    <p>
+                        <strong>Insight:</strong> Peak-hour pollution levels are consistently higher than non-peak hours, indicating the influence of traffic and human activity.
+                    </p>
+                </div>
+            </div>
+
+
+
+
         </div>
     )
 }
