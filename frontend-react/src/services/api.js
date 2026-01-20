@@ -23,6 +23,32 @@ export const predictPM25 = async (data) => {
     }
 }
 
+export const predictAdvanced = async (data) => {
+    try {
+        const response = await api.post('/predict_advanced', data)
+        return { success: true, data: response.data }
+    } catch (error) {
+        console.error('Advanced Prediction API Error:', error)
+        return {
+            success: false,
+            error: error.response?.data?.detail || error.message || 'Failed to connect to backend'
+        }
+    }
+}
+
+export const getAIAnalysis = async (data) => {
+    try {
+        const response = await api.post('/analyze', data)
+        return { success: true, data: response.data }
+    } catch (error) {
+        console.error('AI Analysis API Error:', error)
+        return {
+            success: false,
+            error: error.response?.data?.detail || error.message || 'Failed to fetch AI analysis'
+        }
+    }
+}
+
 export const getLatestData = async (stationId) => {
     try {
         const response = await api.get(`/latest?station_id=${stationId}`)

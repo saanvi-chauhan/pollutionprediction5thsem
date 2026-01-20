@@ -7,6 +7,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         { path: '/', label: 'Home' },
         { path: '/dashboard', label: 'Dashboard' },
         { path: '/comparison', label: 'Compare' },
+        { path: '/chatbot', label: 'AI Chatbot' },
         { path: '/about', label: 'About' },
     ]
 
@@ -14,8 +15,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
     return (
         <nav className={`sticky top-0 z-50 backdrop-blur-lg border-b transition-colors duration-300 ${darkMode
-                ? 'bg-slate-900/80 border-slate-700'
-                : 'bg-white/80 border-gray-200'
+            ? 'bg-slate-900/80 border-slate-700'
+            : 'bg-white/80 border-gray-200'
             }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
@@ -34,10 +35,10 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                 key={link.path}
                                 to={link.path}
                                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${isActive(link.path)
-                                        ? 'bg-primary-500 text-white'
-                                        : darkMode
-                                            ? 'text-gray-300 hover:bg-slate-700 hover:text-white'
-                                            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                                    ? 'bg-primary-500 text-white'
+                                    : darkMode
+                                        ? 'text-gray-300 hover:bg-slate-700 hover:text-white'
+                                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                                     }`}
                             >
                                 {link.label}
@@ -49,8 +50,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                     <button
                         onClick={toggleDarkMode}
                         className={`p-2 rounded-lg transition-colors duration-200 ${darkMode
-                                ? 'bg-slate-700 hover:bg-slate-600 text-yellow-400'
-                                : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                            ? 'bg-slate-700 hover:bg-slate-600 text-yellow-400'
+                            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                             }`}
                         aria-label="Toggle theme"
                     >
@@ -90,10 +91,10 @@ const MobileMenu = ({ darkMode, navLinks, isActive }) => {
                         key={link.path}
                         to={link.path}
                         className={`block px-4 py-2 ${isActive(link.path)
-                                ? 'bg-primary-500 text-white'
-                                : darkMode
-                                    ? 'hover:bg-slate-700'
-                                    : 'hover:bg-gray-100'
+                            ? 'bg-primary-500 text-white'
+                            : darkMode
+                                ? 'hover:bg-slate-700'
+                                : 'hover:bg-gray-100'
                             }`}
                     >
                         {link.label}

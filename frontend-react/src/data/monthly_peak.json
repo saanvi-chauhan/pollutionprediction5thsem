@@ -1,0 +1,68 @@
+[
+    {
+        "month": "Jan",
+        "peak_pm25": 34.52,
+        "non_peak_pm25": 33.07,
+        "overall_pm25": 33.62
+    },
+    {
+        "month": "Feb",
+        "peak_pm25": 31.18,
+        "non_peak_pm25": 30.29,
+        "overall_pm25": 30.62
+    },
+    {
+        "month": "Mar",
+        "peak_pm25": 29.13,
+        "non_peak_pm25": 26.64,
+        "overall_pm25": 27.57
+    },
+    {
+        "month": "Apr",
+        "peak_pm25": 28.75,
+        "non_peak_pm25": 27.29,
+        "overall_pm25": 27.85
+    },
+    {
+        "month": "May",
+        "peak_pm25": 20.77,
+        "non_peak_pm25": 18.48,
+        "overall_pm25": 19.34
+    },
+    {
+        "month": "Jun",
+        "peak_pm25": 21.20,
+        "non_peak_pm25": 18.97,
+        "overall_pm25": 19.81
+    },
+    {
+        "month": "Jul",
+        "peak_pm25": 17.84,
+        "non_peak_pm25": 16.64,
+        "overall_pm25": 17.09
+    },
+    {
+        "month": "Aug",
+        "peak_pm25": 16.61,
+        "non_peak_pm25": 15.46,
+        "overall_pm25": 15.89
+    },
+    {
+        "month": "Sep",
+        "peak_pm25": 13.84,
+        "non_peak_pm25": 12.35,
+        "overall_pm25": 12.91
+    },
+    {
+        "month": "Oct",
+        "peak_pm25": 14.66,
+        "non_peak_pm25": 13.06,
+        "overall_pm25": 13.66
+    },
+    {
+        "month": "Nov",
+        "peak_pm25": 24.37,
+        "non_peak_pm25": 24.22,
+        "overall_pm25": 24.28
+    }
+]

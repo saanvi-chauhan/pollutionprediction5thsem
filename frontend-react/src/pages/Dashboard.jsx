@@ -1,19 +1,26 @@
 import { useState, useEffect } from 'react'
-import { predictPM25, getMockPrediction, getLatestData, STATIONS } from '../services/api'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import PollutantCard from '../components/PollutantCard'
 import AQIGauge from '../components/AQIGauge'
 import ShapExplanation from '../components/ShapExplanation'
 import HealthAdvisory from '../components/HealthAdvisory'
-import HistoricalChart from '../components/HistoricalChart'
+import StationPeakChart from '../components/StationPeakChart'
+import MonthlyPeakTrend from '../components/MonthlyPeakTrend'
+import AIAnalysisReport from '../components/AIAnalysisReport'
+import { predictAdvanced, getAIAnalysis, getMockPrediction, getLatestData, STATIONS } from '../services/api'
+
+
 
 const Dashboard = ({ darkMode }) => {
     const [selectedStation, setSelectedStation] = useState('Peenya')
     const [loading, setLoading] = useState(false)
     const [prediction, setPrediction] = useState(null)
+    const [advancedPrediction, setAdvancedPrediction] = useState(null)
+    const [aiAnalysis, setAiAnalysis] = useState(null)
+    const [analysisLoading, setAnalysisLoading] = useState(false)
     const [error, setError] = useState(null)
-    const [timeFilter, setTimeFilter] = useState('24h')
+
 
     // Initial state with safe defaults
     const [sensorData, setSensorData] = useState({
@@ -46,6 +53,7 @@ const Dashboard = ({ darkMode }) => {
     const handlePredict = async () => {
         setLoading(true)
         setError(null)
+        setAiAnalysis(null)
 
         try {
             const payload = {
@@ -59,15 +67,22 @@ const Dashboard = ({ darkMode }) => {
                 RH: sensorData.RH,
                 PM25_lag_1: sensorData.PM25_lag_1,
                 PM25_lag_24: sensorData.PM25_lag_24,
+                month: new Date(sensorData.datetime !== '--' ? sensorData.datetime : new Date()).getMonth() + 1,
+                hour: new Date(sensorData.datetime !== '--' ? sensorData.datetime : new Date()).getHours(),
             }
 
-            const result = await predictPM25(payload)
+            const result = await predictAdvanced(payload)
 
             if (result.success) {
-                setPrediction(result.data)
+                setPrediction(result.data.current)
+                setAdvancedPrediction(result.data.forecast)
+
+                // Fetch AI Analysis automatically after prediction
+                fetchAIAnalysis(result.data, payload)
             } else {
                 console.warn('Using mock prediction due to:', result.error)
-                setPrediction(getMockPrediction())
+                const mock = getMockPrediction()
+                setPrediction(mock)
                 setError('Backend not available. Using demo prediction.')
             }
         } catch (err) {
@@ -76,6 +91,29 @@ const Dashboard = ({ darkMode }) => {
             setError('Backend not available. Using demo prediction.')
         } finally {
             setLoading(false)
+        }
+    }
+
+    const fetchAIAnalysis = async (predictionData, features) => {
+        setAnalysisLoading(true)
+        try {
+            const analysisPayload = {
+                pm25_current: predictionData.current.pm25,
+                pm25_future: predictionData.forecast.pm25_6h,
+                is_high_pollution: predictionData.forecast.is_high_pollution,
+                humidity: features.RH,
+                month: features.month,
+                hour: features.hour,
+                lag_24: features.PM25_lag_24
+            }
+            const result = await getAIAnalysis(analysisPayload)
+            if (result.success) {
+                setAiAnalysis(result.data.reasoning)
+            }
+        } catch (err) {
+            console.error('AI Analysis fetch error:', err)
+        } finally {
+            setAnalysisLoading(false)
         }
     }
 
@@ -162,18 +200,36 @@ const Dashboard = ({ darkMode }) => {
                         </Button>
 
                         {prediction && (
-                            <div className="grid sm:grid-cols-2 gap-4">
-                                <div className={`p-4 rounded-xl ${darkMode ? 'bg-slate-700/50' : 'bg-gray-50'}`}>
-                                    <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Predicted PM2.5</p>
-                                    <p className="text-3xl font-bold text-primary-500">
-                                        {prediction.pm25_prediction.toFixed(2)}
-                                        <span className="text-base font-normal ml-1">µg/m³</span>
-                                    </p>
+                            <div className="space-y-4">
+                                <div className="grid sm:grid-cols-2 gap-4">
+                                    <div className={`p-4 rounded-xl ${darkMode ? 'bg-slate-700/50' : 'bg-gray-50'} border-l-4 border-l-primary-500`}>
+                                        <p className={`text-xs uppercase tracking-wider mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Current Prediction</p>
+                                        <p className="text-3xl font-bold text-primary-500">
+                                            {prediction.pm25 ? prediction.pm25.toFixed(2) : prediction.pm25_prediction.toFixed(2)}
+                                            <span className="text-base font-normal ml-1">µg/m³</span>
+                                        </p>
+                                        <p className="text-sm font-medium mt-1">{prediction.category || prediction.aqi_category}</p>
+                                    </div>
+
+                                    {advancedPrediction && (
+                                        <div className={`p-4 rounded-xl ${darkMode ? 'bg-slate-700/50' : 'bg-gray-50'} border-l-4 border-l-indigo-500`}>
+                                            <p className={`text-xs uppercase tracking-wider mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>6-Hour Forecast</p>
+                                            <p className="text-3xl font-bold text-indigo-500">
+                                                {advancedPrediction.pm25_6h.toFixed(2)}
+                                                <span className="text-base font-normal ml-1">µg/m³</span>
+                                            </p>
+                                            <p className={`text-sm font-medium mt-1 ${advancedPrediction.is_high_pollution ? 'text-red-500' : 'text-emerald-500'}`}>
+                                                {advancedPrediction.status}
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className={`p-4 rounded-xl ${darkMode ? 'bg-slate-700/50' : 'bg-gray-50'}`}>
-                                    <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>AQI Category</p>
-                                    <p className="text-2xl font-bold">{prediction.aqi_category}</p>
-                                </div>
+
+                                {advancedPrediction && advancedPrediction.is_high_pollution === 1 && (
+                                    <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500 text-sm flex items-center gap-2">
+                                        <span>⚠️</span> <strong>High Pollution Event Detected</strong> in the next 6 hours.
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
@@ -195,15 +251,37 @@ const Dashboard = ({ darkMode }) => {
             </Card>
 
             {/* SHAP Explanation & Health Advisory */}
-            {prediction && (
+            {(prediction || advancedPrediction) && (
                 <div className="grid lg:grid-cols-2 gap-6 mb-8">
-                    <ShapExplanation explanations={prediction.explanation} darkMode={darkMode} />
-                    <HealthAdvisory aqi={prediction.aqi} darkMode={darkMode} />
+                    {prediction?.explanation && <ShapExplanation explanations={prediction.explanation} darkMode={darkMode} />}
+                    <HealthAdvisory aqi={prediction?.aqi || 0} darkMode={darkMode} />
                 </div>
             )}
 
-            {/* Historical Chart */}
-            <HistoricalChart darkMode={darkMode} timeFilter={timeFilter} />
+            {/* AI Analysis Report */}
+            {(aiAnalysis || analysisLoading) && (
+                <div className="mb-8">
+                    <AIAnalysisReport report={aiAnalysis} loading={analysisLoading} darkMode={darkMode} />
+                </div>
+            )}
+
+            {/* Peak Analysis Section */}
+            <div className="mt-12 mb-8">
+                <h2 className="text-xl font-semibold mb-6">📉 Traffic & Temporal Analysis</h2>
+                <div className="grid lg:grid-cols-2 gap-6 mb-4">
+                    <StationPeakChart darkMode={darkMode} />
+                    <MonthlyPeakTrend darkMode={darkMode} />
+                </div>
+                <div className={`p-4 rounded-lg border ${darkMode ? 'bg-slate-800/50 border-slate-700 text-gray-400' : 'bg-gray-50 border-gray-200 text-gray-600'} text-sm`}>
+                    <p>
+                        <strong>Insight:</strong> Peak-hour pollution levels are consistently higher than non-peak hours, indicating the influence of traffic and human activity.
+                    </p>
+                </div>
+            </div>
+
+
+
+
         </div>
     )
 }

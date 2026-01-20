@@ -1,0 +1,20 @@
+[
+    {
+        "station_id": "Peenya",
+        "Non-Peak": 25.43,
+        "Peak": 27.18,
+        "percentage_increase": 6.89
+    },
+    {
+        "station_id": "RVCE Mailsandra",
+        "Non-Peak": 13.01,
+        "Peak": 13.20,
+        "percentage_increase": 1.46
+    },
+    {
+        "station_id": "Silkboard",
+        "Non-Peak": 26.70,
+        "Peak": 29.33,
+        "percentage_increase": 9.86
+    }
+]
