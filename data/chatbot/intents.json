@@ -1,0 +1,410 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hello",
+        "Hey",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "Greetings",
+        "What's up",
+        "Howdy"
+      ],
+      "responses": [
+        "Hello! I'm your Air Quality Assistant. How can I help you today?",
+        "Hi there! Ask me about air quality, AQI, or pollution levels.",
+        "Hey! I'm here to help with air quality information. What would you like to know?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye",
+        "Goodbye",
+        "See you later",
+        "See you",
+        "Talk to you later",
+        "Catch you later",
+        "I'm leaving",
+        "Have a good day"
+      ],
+      "responses": [
+        "Goodbye! Stay safe and breathe easy! 🌿",
+        "See you later! Don't forget to check the air quality before going out!",
+        "Take care! Visit us again for air quality updates."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thanks",
+        "Thank you",
+        "Thanks a lot",
+        "I appreciate it",
+        "Thank you so much",
+        "Thanks for your help",
+        "Cheers",
+        "Awesome, thanks"
+      ],
+      "responses": [
+        "You're welcome! Happy to help! 😊",
+        "My pleasure! Feel free to ask anything else.",
+        "Glad I could help! Stay healthy!"
+      ]
+    },
+    {
+      "tag": "check_aqi",
+      "patterns": [
+        "What is the current AQI?",
+        "Tell me the AQI",
+        "Show me AQI",
+        "What's the air quality index?",
+        "Current AQI",
+        "AQI right now",
+        "Air quality index today",
+        "How is the air quality?",
+        "What's the air quality like?",
+        "Is the air quality good?",
+        "Air quality status",
+        "Check AQI",
+        "What is the AQI in Peenya?",
+        "AQI at RVCE",
+        "Silkboard AQI",
+        "Tell me AQI in Silkboard",
+        "AQI in my area right now?",
+        "What’s the AQI near me?",
+        "Air quality right now in Peenya",
+        "Air quality right now in Silkboard",
+        "Air quality right now in RVCE",
+        "What is today’s AQI in Peenya?",
+        "What is today’s AQI in Silkboard?",
+        "What is today’s AQI in RVCE?",
+        "Give me the latest air quality index",
+        "Show latest AQI reading",
+        "What’s the AQI value currently?",
+        "Current AQI at Peenya station",
+        "Current AQI at Silkboard station",
+        "Current AQI at RVCE station",
+        "How bad is the air right now?"
+      ],
+      "responses": [
+        "API_CALL:check_aqi"
+      ]
+    },
+    {
+      "tag": "outdoor_safety",
+      "patterns": [
+        "Is it safe to go outside?",
+        "Can I go out?",
+        "Should I go outside?",
+        "Is it safe to exercise outdoors?",
+        "Can I run outside?",
+        "Is it safe for jogging?",
+        "Can I play outside?",
+        "Should children play outside?",
+        "Is outdoor exercise safe?",
+        "Can I go for a walk?",
+        "Is it okay to be outside?",
+        "Should I avoid going out?",
+        "Can kids play outdoors?",
+        "Is it safe to go for a run right now?",
+        "Can I exercise outside today?",
+        "Is it okay to take a walk now?",
+        "Should I stay indoors today?",
+        "Is it safe for kids to play outside today?",
+        "Can elderly people go outside now?",
+        "Is it safe to commute by bike?",
+        "Is it safe to play football outside?",
+        "Should I avoid outdoor workout today?",
+        "Is it okay to go out without a mask?"
+      ],
+      "responses": [
+        "API_CALL:outdoor_safety"
+      ]
+    },
+    {
+      "tag": "what_is_aqi",
+      "patterns": [
+        "What is AQI?",
+        "Explain AQI",
+        "What does AQI mean?",
+        "Tell me about AQI",
+        "Define AQI",
+        "What is air quality index?",
+        "How is AQI calculated?",
+        "AQI meaning",
+        "What's AQI?",
+        "Explain air quality index"
+      ],
+      "responses": [
+        "AQI (Air Quality Index) is a standardized indicator that measures how polluted the air is. It ranges from 0 to 500:\n\n🟢 0-50: Good\n🟡 51-100: Satisfactory\n🟠 101-200: Moderate\n🔴 201-300: Poor\n🟣 301-400: Very Poor\n🟤 401-500: Severe\n\nLower values mean cleaner, healthier air!"
+      ]
+    },
+    {
+      "tag": "what_is_pm25",
+      "patterns": [
+        "What is PM2.5?",
+        "Explain PM2.5",
+        "What does PM2.5 mean?",
+        "Tell me about PM2.5",
+        "PM2.5 meaning",
+        "What are fine particles?",
+        "What is particulate matter?",
+        "PM 2.5 definition",
+        "What's PM2.5?"
+      ],
+      "responses": [
+        "PM2.5 refers to fine particulate matter with a diameter of 2.5 micrometers or smaller (about 3% the diameter of a human hair!). 🔬\n\nThese tiny particles can:\n• Penetrate deep into lungs\n• Enter the bloodstream\n• Cause respiratory problems\n• Aggravate heart disease\n• Reduce life expectancy\n\n✅ Safe level: 0-30 µg/m³\n⚠️ Unhealthy: Above 60 µg/m³"
+      ]
+    },
+    {
+      "tag": "what_is_pm10",
+      "patterns": [
+        "What is PM10?",
+        "Explain PM10",
+        "PM10 meaning",
+        "What does PM10 mean?",
+        "Tell me about PM10",
+        "PM 10 definition"
+      ],
+      "responses": [
+        "PM10 refers to coarse particulate matter with a diameter of 10 micrometers or smaller. These particles include:\n\n• Dust\n• Pollen\n• Mold spores\n• Combustion particles\n\nPM10 can irritate the eyes, nose, and throat, but is less dangerous than PM2.5 since it doesn't penetrate as deeply into the lungs.\n\n✅ Safe level: 0-50 µg/m³"
+      ]
+    },
+    {
+      "tag": "compare_stations",
+      "patterns": [
+        "Compare air quality",
+        "Compare stations",
+        "Which area has better air?",
+        "Show me all stations",
+        "Compare Peenya and Silkboard",
+        "Best air quality location",
+        "Which station has cleanest air?",
+        "Comparison of stations",
+        "Compare all areas",
+        "Where is air quality better?",
+        "Best place for air quality",
+        "Which station has the lowest AQI right now?",
+        "Which place has the cleanest air today?",
+        "Which area is most polluted right now?",
+        "Compare AQI across all stations",
+        "Rank stations by air quality",
+        "Which is better right now: Peenya or RVCE?",
+        "Which is better right now: Silkboard or Peenya?",
+        "Which station has worst air quality currently?"
+      ],
+      "responses": [
+        "API_CALL:compare_stations"
+      ]
+    },
+    {
+      "tag": "health_advisory",
+      "patterns": [
+        "Health advice",
+        "What should I do?",
+        "How to stay safe?",
+        "Health recommendations",
+        "Precautions for pollution",
+        "How to protect myself?",
+        "Safety tips",
+        "What are the health effects?",
+        "How does pollution affect health?",
+        "Health impacts of pollution"
+      ],
+      "responses": [
+        "Here are health recommendations based on current air quality:\n\n🟢 Good (0-50): Enjoy outdoor activities!\n\n🟡 Satisfactory (51-100): Most people can be outdoors. Sensitive individuals should watch for symptoms.\n\n🟠 Moderate (101-200): \n• Limit prolonged outdoor exertion\n• Sensitive groups: reduce outdoor activity\n• Wear N95 masks if needed\n\n🔴 Poor (201-300):\n• Minimize outdoor activities\n• Keep windows closed\n• Use air purifiers indoors\n• Wear masks when outside\n\n🟣 Very Poor/Severe (301+):\n• Stay indoors\n• Avoid all physical activities outdoors\n• Use air purifiers\n• Consult doctor if experiencing symptoms"
+      ]
+    },
+    {
+      "tag": "pollution_causes",
+      "patterns": [
+        "What causes pollution?",
+        "Why is air quality bad?",
+        "Sources of pollution",
+        "What creates pollution?",
+        "Pollution sources",
+        "Why is the air polluted?",
+        "Main causes of air pollution",
+        "Where does pollution come from?",
+        "Why is Silkboard usually more polluted?",
+        "Why is Peenya polluted?",
+        "What are the main sources of PM2.5 here?"
+      ],
+      "responses": [
+        "Main sources of air pollution in Bengaluru:\n\n🚗 Vehicular Emissions (60-70%)\n• Cars, buses, trucks, two-wheelers\n• Major contributor to NOx, CO, PM\n\n🏭 Industrial Emissions (15-20%)\n• Factories in Peenya, Whitefield\n• Release PM, SO2, heavy metals\n\n🏗️ Construction Activity (10-15%)\n• Dust from building sites\n• Road construction\n\n🔥 Biomass Burning\n• Crop burning in nearby areas\n• Garbage burning\n\n🏠 Domestic Sources\n• Cooking fuels\n• Generator sets"
+      ]
+    },
+    {
+      "tag": "reduce_exposure",
+      "patterns": [
+        "How to reduce pollution exposure?",
+        "How to protect from pollution?",
+        "Ways to reduce exposure",
+        "Tips to avoid pollution",
+        "How to breathe clean air?",
+        "Reduce pollution impact",
+        "Minimize exposure to pollution",
+        "How can I reduce my exposure today?",
+        "What should I do to avoid pollution outdoors?",
+        "Tips for commuting in high pollution",
+        "How do I keep indoor air clean?",
+        "What to do when AQI is high?",
+        "How to protect children from pollution?"
+      ],
+      "responses": [
+        "Ways to reduce pollution exposure:\n\n🏠 Indoors:\n• Use air purifiers with HEPA filters\n• Keep windows closed on high pollution days\n• Ventilate during early morning (6-8 AM)\n• Add indoor plants (but don't rely on them alone)\n\n🚶 Outdoors:\n• Wear N95/N99 masks\n• Avoid peak traffic hours (8-11 AM, 5-9 PM)\n• Choose less-trafficked routes\n• Exercise early morning or late evening\n• Stay away from construction sites\n\n🚗 Commuting:\n• Use public transport\n• Keep car windows closed\n• Use cabin air filters\n• Avoid idling in traffic\n\n💪 Health:\n• Stay hydrated\n• Eat antioxidant-rich foods\n• Regular health check-ups"
+      ]
+    },
+    {
+      "tag": "sensitive_groups",
+      "patterns": [
+        "Who is at risk?",
+        "Sensitive groups",
+        "Who should be careful?",
+        "Risk groups for pollution",
+        "Vulnerable people",
+        "Who is most affected?",
+        "High risk groups"
+      ],
+      "responses": [
+        "People most sensitive to air pollution:\n\n👶 Children\n• Lungs still developing\n• Breathe more air per body weight\n• More active outdoors\n\n👴 Elderly (65+)\n• Weakened immune systems\n• Often have pre-existing conditions\n\n🫁 People with Respiratory Conditions\n• Asthma\n• COPD\n• Bronchitis\n\n❤️ Heart Disease Patients\n• Pollution can trigger heart attacks\n• Aggravates existing conditions\n\n🤰 Pregnant Women\n• Risk to fetal development\n• Can affect birth weight\n\n💪 Athletes & Outdoor Workers\n• Higher breathing rates\n• More exposure\n\nThese groups should take extra precautions during high pollution days!"
+      ]
+    },
+    {
+      "tag": "seasonal_effects",
+      "patterns": [
+        "When is pollution worst?",
+        "Seasonal pollution",
+        "Which season has bad air?",
+        "Pollution in winter",
+        "Pollution in summer",
+        "Best time of year for air quality",
+        "Monsoon air quality",
+        "Why is air quality worse in winter?",
+        "Is monsoon season better for air quality?",
+        "When does Bengaluru pollution peak?"
+      ],
+      "responses": [
+        "Seasonal pollution patterns in Bengaluru:\n\n🥶 Winter (Nov-Feb): WORST\n• Temperature inversion traps pollutants\n• Low wind speeds\n• Crop burning in nearby states\n• Diwali firecrackers (Oct-Nov)\n\n☀️ Summer (Mar-May): MODERATE\n• Higher temperatures aid dispersion\n• But dust storms increase PM10\n• Construction activity peaks\n\n🌧️ Monsoon (Jun-Sep): BEST\n• Rain washes out pollutants\n• Cleaner air\n• Less dust\n\n🍂 Post-Monsoon (Oct): MODERATE\n• Transition period\n• Festival season begins\n• Air quality starts deteriorating\n\nBest time for outdoor activities: During and after monsoon (June-October)!"
+      ]
+    },
+    {
+      "tag": "prediction",
+      "patterns": [
+        "Future air quality",
+        "Tomorrow's AQI",
+        "Predict air quality",
+        "What will AQI be tomorrow?",
+        "Forecast",
+        "Air quality prediction",
+        "Will air quality improve?",
+        "Next week air quality"
+      ],
+      "responses": [
+        "For AI-powered air quality predictions, please visit the Dashboard! 📊\n\nOur ML ensemble model (Random Forest + XGBoost) can predict PM2.5 levels based on:\n• Current pollutant levels\n• Historical patterns\n• Meteorological conditions\n• Time of day\n\nClick the '🔮 Predict PM2.5 & AQI' button on the Dashboard for real-time predictions with SHAP explanations!"
+      ]
+    },
+    {
+      "tag": "help",
+      "patterns": [
+        "Help",
+        "What can you do?",
+        "How can you help?",
+        "What questions can I ask?",
+        "Help me",
+        "Guide me",
+        "What do you know?",
+        "Commands",
+        "What can I ask you about air quality?",
+        "Give me examples of questions I can ask",
+        "Show me what you can do"
+      ],
+      "responses": [
+        "I can help you with:\n\n✅ Current AQI levels at different stations\n✅ Is it safe to go outside?\n✅ Explanations of pollutants (PM2.5, PM10, NOx, etc.)\n✅ Station comparisons\n✅ Health recommendations\n✅ Pollution causes and sources\n✅ Tips to reduce exposure\n✅ Information about sensitive groups\n✅ Seasonal pollution patterns\n\nJust ask your question naturally, and I'll do my best to help! 😊"
+      ]
+    },
+    {
+      "tag": "no2_info",
+      "patterns": [
+        "What is NO2?",
+        "Explain NO2",
+        "Nitrogen dioxide",
+        "What does NO2 mean?",
+        "NO2 meaning"
+      ],
+      "responses": [
+        "NO2 (Nitrogen Dioxide) is a reddish-brown gas formed by:\n\n🚗 Vehicle exhausts (major source)\n🏭 Industrial processes\n⚡ Power plants\n\nHealth Effects:\n• Irritates airways\n• Aggravates asthma\n• Increases respiratory infections\n• Reduces lung function\n\n✅ Safe level: <40 µg/m³ (annual avg)\n⚠️ Alert: >200 µg/m³ (hourly avg)"
+      ]
+    },
+    {
+      "tag": "co_info",
+      "patterns": [
+        "What is CO?",
+        "Explain CO",
+        "Carbon monoxide",
+        "What does CO mean?",
+        "CO meaning"
+      ],
+      "responses": [
+        "CO (Carbon Monoxide) is a colorless, odorless gas produced by incomplete combustion:\n\n🚗 Vehicle emissions (primary source)\n🏭 Industrial processes\n🔥 Biomass burning\n\nHealth Effects:\n• Reduces oxygen delivery to organs\n• Causes headaches, dizziness\n• Impairs vision and coordination\n• Fatal at high concentrations\n\n✅ Safe level: <2 mg/m³ (8-hour avg)\n⚠️ Dangerous: >10 mg/m³"
+      ]
+    },
+    {
+      "tag": "ozone_info",
+      "patterns": [
+        "What is ozone?",
+        "Explain ozone",
+        "O3 meaning",
+        "What does ozone mean?",
+        "Ground level ozone"
+      ],
+      "responses": [
+        "Ozone (O3) at ground level is a harmful pollutant (though beneficial in the upper atmosphere!).\n\nHow it forms:\n☀️ Sunlight + NOx + VOCs → Ozone\n\nHighest during sunny afternoons!\n\nHealth Effects:\n• Irritates lungs\n• Triggers asthma\n• Reduces lung function\n• Damages lung tissue\n\n✅ Safe level: <100 µg/m³ (8-hour avg)\n⚠️ Unhealthy: >160 µg/m³"
+      ]
+    },
+    {
+      "tag": "mask_advice",
+      "patterns": [
+        "Should I wear a mask?",
+        "Do I need a mask?",
+        "What mask to wear?",
+        "N95 mask",
+        "Pollution mask",
+        "Best mask for pollution",
+        "Do I need an N95 right now?",
+        "Should I wear N95 in Peenya today?",
+        "Is a cloth mask enough for pollution?",
+        "Which mask is best for PM2.5?",
+        "When should I wear a mask outside?",
+        "N95 or N99 for today’s air?"
+      ],
+      "responses": [
+        "Mask recommendations based on AQI:\n\n🟢 Good (0-50): No mask needed\n\n🟡 Satisfactory (51-100): Optional for sensitive groups\n\n🟠 Moderate (101-200): \n• Recommended for sensitive groups\n• N95 or N99 masks\n\n🔴 Poor (201-300):\n• Everyone should wear N95/N99 masks outdoors\n• Ensure proper fit\n\n🟣 Very Poor/Severe (301+):\n• N99 masks mandatory\n• Stay indoors as much as possible\n\n💡 Tips:\n• Cloth masks don't filter PM2.5\n• Change masks regularly\n• Ensure no gaps around edges\n• Children need properly sized masks"
+      ]
+    },
+    {
+      "tag": "air_purifier",
+      "patterns": [
+        "Air purifier",
+        "Should I buy air purifier?",
+        "Do air purifiers work?",
+        "Best air purifier",
+        "HEPA filter",
+        "Indoor air quality",
+        "Is an air purifier worth it in Bengaluru?",
+        "Which HEPA rating should I buy?",
+        "How do I size an air purifier for my room?",
+        "Should I run purifier all day?",
+        "Do air purifiers remove PM2.5 effectively?"
+      ],
+      "responses": [
+        "Air Purifier Guide:\n\n✅ Do They Work?\nYes! HEPA filters can remove 99.97% of PM2.5 particles.\n\n🔍 What to Look For:\n• True HEPA filter (H13 or H14)\n• Appropriate CADR for room size\n• Carbon filter for gases\n• Low noise level\n• Energy efficient\n\n📍 Where to Place:\n• Bedroom (spend 8+ hours)\n• Living room\n• Near windows/doors\n• Away from walls (airflow)\n\n🔧 Maintenance:\n• Change filters every 6-12 months\n• Clean pre-filters monthly\n• Keep doors/windows closed\n\n💡 Alternatives:\n• Ventilate during early morning\n• Indoor plants (limited effect)\n• Minimize indoor pollution sources"
+      ]
+    }
+  ]
+}
+

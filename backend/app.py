@@ -6,6 +6,7 @@ import pandas as pd
 from utils.feature_engineering import prepare_features
 from utils.shap_utils import RFShapExplainer
 from utils.aqi_utils import calculate_aqi_pm25, aqi_category
+from utils.chatbot_service import AirQualityChatbot
 
 # ========================
 # LOAD MODELS
@@ -25,6 +26,9 @@ background_df = pd.read_csv(
 ).drop(columns=["from_date", "station_id", "PM2.5"]).sample(100)
 
 shap_explainer = RFShapExplainer(rf_model, background_df)
+
+# Initialize Chatbot
+chatbot = AirQualityChatbot()
 
 # ========================
 # FASTAPI APP
@@ -65,15 +69,23 @@ def get_latest(station_id: str = None):
         
         # Filter by station if provided
         if station_id:
-            # Map frontend station names to CSV station names if needed
             # CSV has: Peenya, Silkboard, RVCE_Mailsandra
-            filtered = df[df["station_id"] == station_id]
-            if not filtered.empty:
-                latest = filtered.sort_values("datetime").iloc[-1]
-            else:
+            filtered = df[df["station_id"] == station_id].sort_values("datetime")
+            if filtered.empty:
                 return {"error": f"No data for station {station_id}"}
         else:
-            latest = df.sort_values("datetime").iloc[-1]
+            filtered = df.sort_values("datetime")
+
+        # Latest row (for non-lag fields)
+        latest = filtered.iloc[-1]
+
+        # For lag fields, prefer latest non-null PM2.5 rather than defaulting to 0
+        pm25_series = filtered["PM2.5"] if "PM2.5" in filtered.columns else pd.Series([], dtype=float)
+        pm25_non_null = pm25_series.dropna()
+        if not pm25_non_null.empty:
+            pm25_latest_valid = float(pm25_non_null.iloc[-1])
+        else:
+            pm25_latest_valid = None
 
         return {
             "datetime": str(latest["datetime"]),
@@ -84,9 +96,9 @@ def get_latest(station_id: str = None):
             "Ozone": float(latest["Ozone"]) if pd.notna(latest.get("Ozone")) else 0.0,
             "RH": float(latest["RH"]) if pd.notna(latest.get("RH")) else 0.0,
             "station_id": latest.get("station_id", "Unknown"),
-            "PM25_lag_1": float(latest["PM2.5"]) if pd.notna(latest.get("PM2.5")) else 0.0,
+            "PM25_lag_1": pm25_latest_valid if pm25_latest_valid is not None else 0.0,
             # For lag_24 we might need more logic or just approximate with current/lag_1
-            "PM25_lag_24": float(latest["PM2.5"]) if pd.notna(latest.get("PM2.5")) else 0.0
+            "PM25_lag_24": pm25_latest_valid if pm25_latest_valid is not None else 0.0
         }
     except Exception as e:
         return {"error": str(e)}
@@ -171,4 +183,45 @@ def predict(data: dict):
         "aqi": int(aqi),
         "aqi_category": category,
         "explanation": explanation
+    }
+
+
+# ========================
+# CHATBOT ENDPOINTS
+# ========================
+@app.post("/chatbot/query")
+def chatbot_query(query: str, station_id: str = None):
+    """
+    Process user query and return intelligent response
+    
+    Example: POST /chatbot/query?query=What is the AQI in Peenya?
+    """
+    try:
+        result = chatbot.process_query(query, station_id=station_id)
+        return result
+    except Exception as e:
+        return {
+            "response": "Sorry, I encountered an error processing your query. Please try again.",
+            "intent": "error",
+            "error": str(e)
+        }
+
+
+@app.get("/chatbot/suggestions")
+def get_chat_suggestions():
+    """Return common question suggestions"""
+    return {
+        "suggestions": [
+            "What is the current AQI?",
+            "AQI in my area right now?",
+            "Air quality right now in Silkboard",
+            "Is it safe to go outside?",
+            "Is it safe to go for a run right now?",
+            "Compare air quality across stations",
+            "Which station has the lowest AQI right now?",
+            "What is PM2.5?",
+            "What is PM10?",
+            "Show me pollution levels",
+            "How do I protect myself from pollution?"
+        ]
     }

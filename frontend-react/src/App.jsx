@@ -4,6 +4,7 @@ import Navbar from './components/ui/Navbar'
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
 import Comparison from './pages/Comparison'
+import Chatbot from './pages/Chatbot'
 import About from './pages/About'
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                         <Route path="/" element={<Landing />} />
                         <Route path="/dashboard" element={<Dashboard darkMode={darkMode} />} />
                         <Route path="/comparison" element={<Comparison darkMode={darkMode} />} />
+                        <Route path="/chatbot" element={<Chatbot darkMode={darkMode} />} />
                         <Route path="/about" element={<About darkMode={darkMode} />} />
                     </Routes>
                 </main>
