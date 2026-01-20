@@ -95,10 +95,5 @@ The system uses an ensemble approach combining **Random Forest** and **XGBoost**
 
 ---
 
-## 👥 Contributors
-- **Saanvi Chauhan** - *Lead Developer*
-
----
-
 ## 📝 License
 This project is licensed under the MIT License - see the LICENSE file for details.
