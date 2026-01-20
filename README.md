@@ -1,104 +1,127 @@
-# 🌍 CleanAir AI: Advanced Air Quality Prediction System
+# 🌍 AI-Powered Air Quality Prediction & Analysis
 
-[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-v0.100+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/React-18+-61DAFB?style=flat&logo=react&logoColor=white)](https://reactjs.org/)
+An advanced full-stack application for monitoring, predicting, and analyzing air quality (PM2.5) in Bengaluru. This system leverages **Machine Learning (XGBoost, Random Forest)**, **SHAP Explainability**, and **Generative AI (Gemini 1.5 Flash)** to provide real-time insights and actionable health advice.
 
-**CleanAir AI** is a state-of-the-art air quality monitoring and prediction platform. It leverages machine learning to provide real-time PM2.5 forecasts, historical analysis, and personalized health advisories for major stations in Bangalore, including Peenya, Silkboard, and RVCE Mailsandra.
+![Project Banner](https://img.shields.io/badge/Status-Active-success)
+![Python](https://img.shields.io/badge/Backend-FastAPI-blue?logo=fastapi)
+![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?logo=react)
+![AI](https://img.shields.io/badge/AI-Gemini%20Flash-orange?logo=google)
+
+## ✨ Key Features
+
+### 1. 📊 Interactive Dashboard
+- **Real-time Monitoring**: Live AQI, PM2.5, PM10, NO2, and other pollutant levels for **Peenya**, **Silkboard**, and **RVCE**.
+- **Visualizations**: Dynamic charts showing historical trends and pollutant breakdown.
+- **Smart Alerts**: Color-coded cards indicating air quality status (Good, Moderate, Severe).
+
+### 2. 🔮 Advanced Prediction System
+- **Hybrid Ensemble Model**: Combines **Random Forest** and **XGBoost** for high-accuracy PM2.5 forecasting.
+- **Explainable AI (XAI)**: Uses **SHAP (SHapley Additive exPlanations)** to show *why* a prediction was made (e.g., "High humidity increased prediction by 12%").
+- **Future Forecasting**: Predicts PM2.5 levels for the next 6 hours.
+
+### 3. 🤖 AI Chatbot Assistant
+- **Natural Language Query**: Ask questions like "Is it safe to go for a run?" or "What is PM2.5?".
+- **Hybrid Intelligence**:
+  - **Local Intent Classifier**: Instantly answers common queries using Logistic Regression & TF-IDF.
+  - **Generative Fallback (Gemini)**: Handles complex/unseen questions using Google's **Gemini 1.5 Flash** LLM.
+- **Context-Aware**: Understands which station you are interested in.
+
+### 4. 📉 Station Comparison
+- Compare pollution metrics across different locations side-by-side to find the cleanest area.
 
 ---
 
-## 🚀 Key Features
+## 🛠️ Tech Stack
 
-- **Real-time Monitoring**: Live data fetching from **AQICN API** for multiple stations.
-- **ML Predictions**: High-accuracy PM2.5 forecasting using an **Ensemble Model** (Random Forest + XGBoost).
-- **Explainable AI**: Integrated **SHAP (SHapley Additive exPlanations)** to understand the factors driving pollution levels.
-- **Health Advisories**: Dynamic health recommendations based on current and predicted AQI categories.
-- **Interactive Dashboard**: Modern, responsive UI built with **Tailwind CSS** and **Recharts**.
-- **Historical Analysis**: Visual comparison of pollutant trends across different locations.
-
----
-
-## 🛠️ Technology Stack
+### Backend
+- **Framework**: FastAPI (Python)
+- **ML Libraries**: Scikit-learn, XGBoost, SHAP, Joblib
+- **Generative AI**: Google Generative AI SDK (`google-generativeai`)
+- **Data Processing**: Pandas, NumPy
 
 ### Frontend
 - **Framework**: React.js (Vite)
 - **Styling**: Tailwind CSS
-- **Visualization**: Recharts
-- **State/Navigation**: React Router DOM, Axios
-
-### Backend
-- **Framework**: FastAPI (Python)
-- **Machine Learning**: Scikit-learn, XGBoost, Joblib
-- **Interpretability**: SHAP
-- **Data Handling**: Pandas, NumPy
-
-### Data Automation
-- **Scripting**: Python requests for live API fetching.
-- **Storage**: CSV-based lightweight data management for real-time updates.
+- **Charts**: Recharts
+- **Icons**: Lucide React
 
 ---
 
-## 📂 Project Structure
+## � Installation & Setup
 
-```text
-├── backend/            # FastAPI server & ML models
-│   ├── models/         # Pre-trained .pkl models
-│   ├── utils/          # Feature engineering & SHAP logic
-│   └── app.py          # Main API entry point
-├── frontend-react/     # Modern React dashboard
-├── data_updater/       # Scripts to fetch live pollution data
-├── notebooks/          # Exploratory Data Analysis & Model Training
-├── data/               # Datasets for training & testing
-└── .env                # API tokens & environment variables
+### Prerequisites
+- Python 3.9+
+- Node.js & npm
+- Google Gemini API Key
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/saanvi-chauhan/pollutionprediction5thsem.git
+cd pollutionprediction5thsem
+git checkout final
 ```
-
----
-
-## ⚡ Getting Started
-
-### 1. Prerequisites
-- Node.js (v18+)
-- Python (3.9+)
 
 ### 2. Backend Setup
 ```bash
 cd backend
+
+# Create virtual environment (optional but recommended)
+python -m venv venv
+# Windows
+.\venv\Scripts\activate
+# Mac/Linux
+source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
-python app.py
 ```
-*Backend will run on `http://localhost:8000`*
+
+**Configuration**:
+Create a `.env` file in the `backend` or root directory:
+```env
+GEMINI_API_KEY=your_google_api_key_here
+```
+
+**Run Server**:
+```bash
+python app.py
+# Server runs on http://127.0.0.1:8000
+```
 
 ### 3. Frontend Setup
 ```bash
 cd frontend-react
+
+# Install dependencies
 npm install
+
+# Run Development Server
 npm run dev
+# App runs on http://localhost:5173
 ```
-*Frontend will run on `http://localhost:5173`*
-
-### 4. Live Data Fetching
-To update the dashboard with live data:
-```bash
-cd data_updater
-python fetch.py
-```
-*(Requires a valid `AQICN_TOKEN` in your `.env` file)*
 
 ---
 
-## 🧠 Machine Learning Model
-The system uses an ensemble approach combining **Random Forest** and **XGBoost** to predict PM2.5 levels. 
-- **Features**: PM10, NO2, NOx, CO, Ozone, Relative Humidity, and lagged PM2.5 values.
-- **Explainability**: We use SHAP values to visualize the impact of each pollutant on the final prediction, ensuring transparency in our AI predictions.
+## 🧠 Model Details
+
+- **Random Forest**: Captures non-linear complex interactions between pollutants.
+- **XGBoost**: Gradient boosting framework for high performance and regularization.
+- **Ensemble**: Weighted average of RF and XGBoost predictions for superior stability.
+- **Chatbot (Intent)**: TF-IDF vectorizer + Logistic Regression trained on custom `intents.json`.
 
 ---
 
-## 👥 Contributors
-- **Saanvi Chauhan** - *Lead Developer*
+## 🤝 Contributing
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
-## 📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## � License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+**Maintained by:** [Saanvi Chauhan](https://github.com/saanvi-chauhan)
